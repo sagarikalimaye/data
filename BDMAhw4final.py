@@ -6,12 +6,10 @@
 
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
-sc = SparkContext()
-spark = SparkSession(sc)
+
 
 import fiona
 import fiona.crs
-import shapely
 import rtree
 
 import pandas as pd
@@ -19,14 +17,14 @@ import geopandas as gpd
 
 import sys
 
-import matplotlib
-import matplotlib.pyplot as plt
-get_ipython().run_line_magic('matplotlib', 'inline')
+#import matplotlib
+#import matplotlib.pyplot as plt
+#get_ipython().run_line_magic('matplotlib', 'inline')
 
-import seaborn as sns
+#import seaborn as sns
 # In[2]:
-def main():
-
+def main(sc):
+    spark = SparkSession(sc)
     boroughs = gpd.read_file('boroughs.geojson').to_crs(fiona.crs.from_epsg(2263))
     nh = gpd.read_file('neighborhoods.geojson').to_crs(fiona.crs.from_epsg(2263))
     print(boroughs.head())
@@ -44,7 +42,7 @@ def main():
     
     
     
-    sns.set(style="whitegrid")
+   #:wq sns.set(style="whitegrid")
     
     
     index = rtree.Rtree()
@@ -81,7 +79,10 @@ def main():
         print(next(reader)) # Skip the header, and print it out for information
         i=0
         for row in reader:
-            p = geom.Point(proj(float(row[3]), float(row[2])))
+            if not row:
+                continue            
+    #        print(row)
+            p = geom.Point(proj(float(row[5]), float(row[6])))
             match = None
             for idx in index.intersection((p.x, p.y, p.x, p.y)):
                 # idx is in the list of shapes that might match
