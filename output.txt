@@ -1,0 +1,5 @@
+Queens,"LaGuardia Airport,311794,John F. Kennedy International Airport,230391,Long Island City,69036"
+Brooklyn,"Williamsburg,88370,Downtown Brooklyn,30504,Brooklyn Heights,30305"
+staten island,"New Springville,140,Emerson Hill,84,Freshkills Park,81"
+Manhattan,"Midtown,2604545,Upper East Side,2134263,Upper West Side,1370949"
+Bronx,"Mott Haven,2572,Concourse,1314,Castle Hill,1301"
